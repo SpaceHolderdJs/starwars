@@ -33,11 +33,12 @@ function App() {
       ship.children.forEach(
         (e) =>
           (e.material = new THREE.MeshLambertMaterial({
-            color: "rgb(240,240,200)",
+            color: "black",
             roughness: 0.5,
             metalness: 0.2,
           }))
       );
+
       ship.rotation.y = 50;
       ship.color = "green";
       ship.scale.x = ship.scale.y = ship.scale.z = 7;
