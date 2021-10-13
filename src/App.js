@@ -22,7 +22,7 @@ function App() {
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.domElement.classList.add("three");
-    // renderer.setClearColor("red");
+
     document.body.appendChild(renderer.domElement);
 
     const geometry = new THREE.SphereGeometry();
@@ -51,7 +51,9 @@ function App() {
       }
     }
 
-    for (let i = 0; i < 1000; i++) {
+    const starsQuantity = 1000;
+
+    for (let i = 0; i < starsQuantity; i++) {
       new Star();
     }
 
