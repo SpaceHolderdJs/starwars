@@ -25,34 +25,6 @@ function App() {
     // renderer.setClearColor("red");
     document.body.appendChild(renderer.domElement);
 
-    const loader = new OBJLoader();
-    loader.loadAsync("./ship2.obj").then((ship) => {
-      scene.add(ship);
-      ship.position.set(0, 0, 0);
-      console.log(ship);
-      ship.children.forEach(
-        (e) =>
-          (e.material = new THREE.MeshLambertMaterial({
-            color: "black",
-            roughness: 0.5,
-            metalness: 0.2,
-          }))
-      );
-
-      ship.rotation.y = 50;
-      ship.color = "green";
-      ship.scale.x = ship.scale.y = ship.scale.z = 7;
-
-      const rotation = () => {
-        requestAnimationFrame(rotation);
-
-        ship.rotation.y += 0.001;
-      };
-
-      rotation();
-      console.log("Added");
-    });
-
     const geometry = new THREE.SphereGeometry();
     const material = new THREE.MeshBasicMaterial({ color: "white" });
 
@@ -85,43 +57,32 @@ function App() {
 
     scene.add(starCollector);
 
-    const lightCollector = new THREE.Object3D();
-
-    const light = new THREE.PointLight("grey", 5, 100);
-    light.position.set(0, 0, 0);
-    lightCollector.add(light);
-
-    const light2 = new THREE.PointLight("white", 1, 100);
-    light.position.set(-10, 5, 0);
-    lightCollector.add(light2);
-
-    const light3 = new THREE.PointLight("red", 5, 100);
-    light.position.set(50, -5, 0);
-    lightCollector.add(light3);
-
-    scene.add(lightCollector);
-
     camera.position.z = 100;
 
     const animate = function () {
       requestAnimationFrame(animate);
 
       starCollector.rotation.z += 0.005;
-      lightCollector.rotation.x += 0.005;
 
       renderer.render(scene, camera);
     };
 
     animate();
 
-    function onWindowResize() {
+    const onWindowResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
 
       renderer.setSize(window.innerWidth, window.innerHeight);
-    }
+    };
 
     window.addEventListener("resize", onWindowResize);
+
+    const onMouseMove = (event) => {
+      camera.rotation.y = (event.pageX - window.innerWidth / 2) * 0.00009;
+    };
+
+    window.addEventListener("mousemove", onMouseMove);
   }, []);
 
   return (
